@@ -1,7 +1,7 @@
 defaults:
     - submitit_slurm
 
-name: ${data.data_name}_${model.name_file}_${prompt.eval_mode}_${prompt.k_per_slot}
+name: YOLOOOOO
 submitit_folder: ${hydra.sweep.dir}/.submitit/%j
 timeout_min: 60
 cpus_per_task: 8
