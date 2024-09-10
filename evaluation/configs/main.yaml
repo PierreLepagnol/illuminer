@@ -1,7 +1,7 @@
 defaults:
     - _self_
     - base_config
-    - model: google/flan-t5-xxl.yaml
+    - model: NousResearch/Hermes-3-Llama-3.1-8B
     # data: is not mentioned here but in config.py to have a mandatory setting
     # prompt: is not mentioned here but in config.py to have a mandatory setting
     - override hydra/hydra_logging: disabled
