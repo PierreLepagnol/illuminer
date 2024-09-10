@@ -106,7 +106,7 @@ class HuggingFaceLLM(LLM):
 
     def __load_model(self):
         model = AutoModelForCausalLM.from_pretrained(
-            str(Path(os.environ["WORK"], "hf_models", self.model_name))
+            str(Path(os.environ["WORK"], "hf_models", self.__model_name))
         )
         # try:
 
