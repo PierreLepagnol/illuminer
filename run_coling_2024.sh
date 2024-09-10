@@ -35,7 +35,7 @@ do
     for prompt in $prompts_intent;
     do
       python -m evaluation.run +data=${dataset}-intent +prompt=zero-shot-${prompt} model=${model}
-      python -m evaluation.run +data=${dataset}-intent +prompt=few-shot-${prompt} model=${model}
+      python -m evaluation.run.py +data=${dataset}-intent +prompt=few-shot-${prompt} model=${model}
     done
   done
 done
@@ -47,8 +47,10 @@ do
   do
     for prompt in $prompts_slot;
     do
+
+    model="NousResearch/Hermes-3-Llama-3.1-8B"
       python -m evaluation.run +data=${dataset}-slot +prompt=zero-shot-${prompt} model=${model}
-      python -m evaluation.run +data=${dataset}-slot +prompt=few-shot-${prompt} model=${model}
+      python -m evaluation.run +data=snips-slot +prompt=few-shot-sf-sp-001 model=${model}
     done
   done
 done
