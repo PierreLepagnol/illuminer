@@ -4,6 +4,7 @@ defaults:
     - model: NousResearch/Hermes-3-Llama-3.1-8B
     # data: is not mentioned here but in config.py to have a mandatory setting
     # prompt: is not mentioned here but in config.py to have a mandatory setting
+    - override hydra/launcher: slurm_a100
     - override hydra/hydra_logging: disabled
 
 main:
