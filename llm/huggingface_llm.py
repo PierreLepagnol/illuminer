@@ -1,4 +1,6 @@
 import logging
+import os
+from pathlib import Path
 from typing import Dict, List, Union
 
 from hydra.utils import get_class
@@ -104,7 +106,9 @@ class HuggingFaceLLM(LLM):
 
     def __load_model(self):
         try:
-            model = AutoModelForCausalLM.from_pretrained(**self.__model_args)
+            model = AutoModelForCausalLM.from_pretrained(
+                Path(os.environ["WORK"], "hf_models", self.model_name)
+            )
         except:
             raise ValueError(
                 f'The passed model type: "{self.__model_type.__name__}" '
