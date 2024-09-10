@@ -55,24 +55,21 @@ def get_llm(model_config: ModelConfig):
 
 
 def get_eval_class(cfg: Config):
-    try:
-        eval_class = get_class(f"evaluation.dtos.dto.{cfg.prompt.eval_mode}")
-        if eval_class == ZeroShotICEvalConfig:
-            return EvaluateZeroShotIntentClassifier(llm=get_llm(cfg.model), cfg=cfg)
-        elif eval_class == FewShotICEvalConfig:
-            return EvaluateFewShotIntentClassifier(llm=get_llm(cfg.model), cfg=cfg)
-        elif eval_class == ZeroShotSFSPEvalConfig:
-            return EvaluateZeroShotSinglePromptSlotFilling(llm=get_llm(cfg.model), cfg=cfg)
-        elif eval_class == FewShotSFSPEvalConfig:
-            return EvaluateFewShotSinglePromptSlotFilling(llm=get_llm(cfg.model), cfg=cfg)
-        elif eval_class == ZeroShotSFMPEvalConfig:
-            return EvaluateZeroShotMultiPromptSlotFilling(llm=get_llm(cfg.model), cfg=cfg)
-        elif eval_class == FewShotSFMPEvalConfig:
-            return EvaluateFewShotMultiPromptSlotFilling(llm=get_llm(cfg.model), cfg=cfg)
-        elif eval_class == SingleTurnDSTEvalConfig:
-            return EvaluateSingleTurnDST(llm=get_llm(cfg.model), cfg=cfg)
-    except:
-        raise Exception(f"Invalid evaluation mode: {cfg.prompt.eval_mode}")
+    eval_class = get_class(f"evaluation.dtos.dto.{cfg.prompt.eval_mode}")
+    if eval_class == ZeroShotICEvalConfig:
+        return EvaluateZeroShotIntentClassifier(llm=get_llm(cfg.model), cfg=cfg)
+    elif eval_class == FewShotICEvalConfig:
+        return EvaluateFewShotIntentClassifier(llm=get_llm(cfg.model), cfg=cfg)
+    elif eval_class == ZeroShotSFSPEvalConfig:
+        return EvaluateZeroShotSinglePromptSlotFilling(llm=get_llm(cfg.model), cfg=cfg)
+    elif eval_class == FewShotSFSPEvalConfig:
+        return EvaluateFewShotSinglePromptSlotFilling(llm=get_llm(cfg.model), cfg=cfg)
+    elif eval_class == ZeroShotSFMPEvalConfig:
+        return EvaluateZeroShotMultiPromptSlotFilling(llm=get_llm(cfg.model), cfg=cfg)
+    elif eval_class == FewShotSFMPEvalConfig:
+        return EvaluateFewShotMultiPromptSlotFilling(llm=get_llm(cfg.model), cfg=cfg)
+    elif eval_class == SingleTurnDSTEvalConfig:
+        return EvaluateSingleTurnDST(llm=get_llm(cfg.model), cfg=cfg)
 
 
 @hydra.main(config_path="evaluation/configs", config_name="main", version_base="1.2")
