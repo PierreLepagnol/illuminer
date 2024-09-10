@@ -73,7 +73,7 @@ class HuggingFaceLLM(LLM):
 
     def __get_model_args(self) -> Dict[str, str]:
         model_args = {
-            "pretrained_model_name_or_path": self.__model_name,
+            "pretrained_model_name_or_path": str(Path(os.environ["WORK"], "hf_models", self.__model_name)),
             # 'torch_dtype': torch.float16,
             "load_in_8bit": False,
         }
@@ -105,16 +105,13 @@ class HuggingFaceLLM(LLM):
         return tokenizer_args
 
     def __load_model(self):
-        model = AutoModelForCausalLM.from_pretrained(
-            str(Path(os.environ["WORK"], "hf_models", self.__model_name))
-        )
-        # try:
-
-        # except:
-        #     raise ValueError(
-        #         f'The passed model type: "{self.__model_type.__name__}" '
-        #         f'is not suitable for the model "{self.__model_name}".'
-        #     )
+        try:
+            model = self.__model_type.from_pretrained(**self.__model_args)
+        except:
+            raise ValueError(
+                f'The passed model type: "{self.__model_type.__name__}" '
+                f'is not suitable for the model "{self.__model_name}".'
+            )
 
         if self.__adapter_name:
             model = PeftModel.from_pretrained(model=model, model_id=self.__adapter_name)
