@@ -1,0 +1,23 @@
+defaults:
+    - submitit_slurm
+
+name: ${data.data_name}_${model.name_file}_${prompt.eval_mode}_${prompt.k_per_slot}
+submitit_folder: ${hydra.sweep.dir}/.submitit/%j
+timeout_min: 120
+cpus_per_task: 10
+tasks_per_node: 1
+nodes: 1
+qos: qos_gpu-t3
+gres: gpu:4
+account: ohd@v100
+constraint: v100-32g
+setup:
+    - module load pytorch-gpu/py3/2.2.0
+    - export PYTHONUSERBASE=$WORK/.local_prompting
+    - export HF_DATASETS_OFFLINE=1
+    - export TRANSFORMERS_OFFLINE=1
+    - export HF_EVALUATE_OFFLINE=1
+    - export GIT_PYTHON_REFRESH=quiet
+    - export HF_TOKEN=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
+additional_parameters:
+    hint: nomultithread

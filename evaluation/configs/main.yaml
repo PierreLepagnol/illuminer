@@ -14,30 +14,3 @@ hydra:
     output_subdir: null
     run:
         dir: .
-    launcher:
-        defaults:
-            - submitit_slurm
-        name: Hermes_model
-        submitit_folder: ${hydra.sweep.dir}/.submitit/%j
-        timeout_min: 60
-        cpus_per_task: 8
-        gpus_per_node: 1
-        tasks_per_node: 1
-        nodes: 1
-        qos: qos_gpu-dev
-        constraint: a100
-        gres: gpu:1
-        account: ohd@a100
-        setup:
-            - module purge
-            - module load cpuarch/amd
-            - module load pytorch-gpu/py3/2.2.0
-            - export PYTHONUSERBASE=$WORK/.local_prompting
-            - export HF_DATASETS_OFFLINE=1
-            - export TRANSFORMERS_OFFLINE=1
-            - export HF_EVALUATE_OFFLINE=1
-            - export GIT_PYTHON_REFRESH=quiet
-            - export HF_TOKEN=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
-
-        additional_parameters:
-            hint: nomultithread
