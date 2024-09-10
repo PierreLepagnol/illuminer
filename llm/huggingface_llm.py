@@ -105,15 +105,14 @@ class HuggingFaceLLM(LLM):
         return tokenizer_args
 
     def __load_model(self):
-        try:
-            model = AutoModelForCausalLM.from_pretrained(
-                Path(os.environ["WORK"], "hf_models", self.model_name)
-            )
-        except:
-            raise ValueError(
-                f'The passed model type: "{self.__model_type.__name__}" '
-                f'is not suitable for the model "{self.__model_name}".'
-            )
+        model = AutoModelForCausalLM.from_pretrained(Path(os.environ["WORK"], "hf_models", self.model_name))
+        # try:
+
+        # except:
+        #     raise ValueError(
+        #         f'The passed model type: "{self.__model_type.__name__}" '
+        #         f'is not suitable for the model "{self.__model_name}".'
+        #     )
 
         if self.__adapter_name:
             model = PeftModel.from_pretrained(model=model, model_id=self.__adapter_name)
